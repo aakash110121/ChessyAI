@@ -317,14 +317,14 @@ export default function PageClient({settings, user, subTier, lout}:PageClientPro
             lout={lout}
           ></MobileSidebar>
         )}
-        <div className="w-full h-full min-h-screen bg-[#EEEEEE] px-4 md:px-6 lg:px-10 py-5">
-          <p className="text-[22px] md:text-[25px] lg:text-[28px] text-black font-semibold">
+        <div className="w-full h-full min-h-screen px-4 md:px-6 lg:px-10 py-5 overflow-auto">
+          <p className="text-[22px] md:text-[25px] lg:text-[28px] text-black font-semibold mb-5">
             Board settings
           </p>
-          <div className="flex space-x-10">
+          <div className="flex space-x-10 rounded-[5px] border border-stroke bg-white p-7 shadow-default">
             <div className="space-y-2 w-full max-w-[650px] mt-5 flex-shrink-0">
               <div
-                className={`mx-auto flex ${
+                className={`border-[2px] rounded-[5px] bg-[#F3F5F8] p-3  font-medium text-black mx-auto flex ${
                   isSmallScr
                     ? "flex-col items-start"
                     : "items-center justify-between space-x-4"
@@ -332,7 +332,7 @@ export default function PageClient({settings, user, subTier, lout}:PageClientPro
               >
                 <label
                   htmlFor="BoardDropdown"
-                  className="text-[16px] md:text-[18px] lg:text-[20px] tracking-wide"
+                  className="text-[16px] md:text-[16px] lg:text-[18px] tracking-wide"
                 >
                   Board
                 </label>
@@ -358,7 +358,7 @@ export default function PageClient({settings, user, subTier, lout}:PageClientPro
                 </div>
               </div>
               <div
-                className={`mx-auto flex ${
+                className={`mx-auto flex font-medium border-[2px] rounded-[5px] bg-[#F3F5F8] p-3 ${
                   isSmallScr
                     ? "flex-col items-start"
                     : "items-center justify-between space-x-4"
@@ -366,7 +366,7 @@ export default function PageClient({settings, user, subTier, lout}:PageClientPro
               >
                 <label
                   htmlFor="AssistantVoice"
-                  className="text-[16px] md:text-[18px] lg:text-[20px] tracking-wide"
+                  className="text-[16px] md:text-[16px] lg:text-[18px] tracking-wide"
                 >
                   Assistant voice
                 </label>
@@ -392,7 +392,7 @@ export default function PageClient({settings, user, subTier, lout}:PageClientPro
                 </div>
               </div>
               <div
-                className={`mx-auto flex ${
+                className={`mx-auto font-medium flex border-[2px] rounded-[5px] bg-[#F3F5F8] p-3 ${
                   isSmallScr
                     ? "flex-col items-start"
                     : "items-center justify-between space-x-4"
@@ -400,7 +400,7 @@ export default function PageClient({settings, user, subTier, lout}:PageClientPro
               >
                 <label
                   htmlFor="PredefinedQuestions"
-                  className="text-[16px] md:text-[18px] lg:text-[20px] tracking-wide"
+                  className="text-[16px] md:text-[16px] lg:text-[18px] tracking-wide"
                 >
                   Predefined questions
                 </label>
@@ -479,7 +479,7 @@ export default function PageClient({settings, user, subTier, lout}:PageClientPro
                 </div>
               </div>
               <div
-                className={`mx-auto flex ${
+                className={`mx-auto font-medium flex border-[2px] rounded-[5px] bg-[#F3F5F8] p-3 ${
                   isSmallScr
                     ? "flex-col items-start"
                     : "items-center justify-between space-x-4"
@@ -487,7 +487,7 @@ export default function PageClient({settings, user, subTier, lout}:PageClientPro
               >
                 <label
                   htmlFor="PiecesNotation"
-                  className="text-[16px] md:text-[18px] lg:text-[20px] tracking-wide"
+                  className="text-[16px] md:text-[16px] lg:text-[18px] tracking-wide"
                 >
                   Notation
                 </label>
@@ -509,7 +509,7 @@ export default function PageClient({settings, user, subTier, lout}:PageClientPro
                 </div>
               </div>
               <div
-                className={`mx-auto flex ${
+                className={`mx-auto font-medium flex border-[2px] rounded-[5px] bg-[#F3F5F8] p-3 ${
                   isSmallScr
                     ? "flex-col items-start"
                     : "items-center justify-between space-x-4"
@@ -517,7 +517,7 @@ export default function PageClient({settings, user, subTier, lout}:PageClientPro
               >
                 <label
                   htmlFor="PiecesNotation"
-                  className="text-[16px] md:text-[18px] lg:text-[20px] tracking-wide truncate"
+                  className="text-[16px] md:text-[16px] lg:text-[18px] tracking-wide truncate"
                 >
                   View captured pieces
                 </label>
@@ -543,7 +543,7 @@ export default function PageClient({settings, user, subTier, lout}:PageClientPro
                 Sound settings
               </p>
               <div
-                className={`mx-auto flex ${
+                className={`mx-auto font-medium flex border-[2px] rounded-[5px] bg-[#F3F5F8] p-3 ${
                   isSmallScr
                     ? "flex-col items-start"
                     : "items-center justify-between space-x-4"
@@ -551,7 +551,7 @@ export default function PageClient({settings, user, subTier, lout}:PageClientPro
               >
                 <label
                   htmlFor="ChessySound"
-                  className="text-[16px] md:text-[18px] lg:text-[20px] tracking-wide truncate"
+                  className="text-[16px] md:text-[16px] lg:text-[18px] tracking-wide truncate"
                 >
                   View captured pieces
                 </label>
@@ -571,7 +571,7 @@ export default function PageClient({settings, user, subTier, lout}:PageClientPro
                 </div>
               </div>
               <div
-                className={`mx-auto flex ${
+                className={`mx-auto font-medium flex border-[2px] rounded-[5px] bg-[#F3F5F8] p-3 ${
                   isSmallScr
                     ? "flex-col items-start"
                     : "items-center justify-between space-x-4"
@@ -579,7 +579,7 @@ export default function PageClient({settings, user, subTier, lout}:PageClientPro
               >
                 <label
                   htmlFor="moveSound"
-                  className="text-[16px] md:text-[18px] lg:text-[20px] tracking-wide"
+                  className="text-[16px] md:text-[16px] lg:text-[18px] tracking-wide"
                 >
                   Move sound
                 </label>
@@ -605,7 +605,7 @@ export default function PageClient({settings, user, subTier, lout}:PageClientPro
                 </div>
               </div>
               <div
-                className={`mx-auto flex ${
+                className={`mx-auto font-medium flex border-[2px] rounded-[5px] bg-[#F3F5F8] p-3 ${
                   isSmallScr
                     ? "flex-col items-start"
                     : "items-center justify-between space-x-4"
@@ -613,7 +613,7 @@ export default function PageClient({settings, user, subTier, lout}:PageClientPro
               >
                 <label
                   htmlFor="checkSound"
-                  className="text-[16px] md:text-[18px] lg:text-[20px] tracking-wide"
+                  className="text-[16px] md:text-[16px] lg:text-[18px] tracking-wide"
                 >
                   Captured piece sound
                 </label>
@@ -639,7 +639,7 @@ export default function PageClient({settings, user, subTier, lout}:PageClientPro
                 </div>
               </div>
               <div
-                className={`mx-auto flex ${
+                className={`mx-auto font-medium flex border-[2px] rounded-[5px] bg-[#F3F5F8] p-3 ${
                   isSmallScr
                     ? "flex-col items-start"
                     : "items-center justify-between space-x-4"
@@ -647,7 +647,7 @@ export default function PageClient({settings, user, subTier, lout}:PageClientPro
               >
                 <label
                   htmlFor="checkMateSound"
-                  className="text-[16px] md:text-[18px] lg:text-[20px] tracking-wide"
+                  className="text-[16px] md:text-[16px] lg:text-[18px] tracking-wide"
                 >
                   Check sound
                 </label>
@@ -676,7 +676,7 @@ export default function PageClient({settings, user, subTier, lout}:PageClientPro
             <div className="flex-1 flex justify-center items-start pt-5">
               <section
                 id="boardDemoElement"
-                className="w-full max-w-[340px] aspect-square grid grid-cols-5 grid-rows-5 "
+                className="w-full max-w-[65%] aspect-square grid grid-cols-5 grid-rows-5 "
               >
                 {Array.from({ length: 25 }, (_, idx: number) => (
                   <div
