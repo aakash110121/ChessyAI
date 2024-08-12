@@ -411,6 +411,7 @@ const Board: React.FC<GameProps> = ({
                     height={200}
                     className="w-[30%]"
                   ></Image>
+                  
                   {(chess.isDraw() ||
                     chess.isInsufficientMaterial() ||
                     chess.isThreefoldRepetition()) && (
