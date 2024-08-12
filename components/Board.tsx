@@ -402,8 +402,8 @@ const Board: React.FC<GameProps> = ({
             {" "}
             {/* Centering for md and below */}
             {(chess.isGameOver() || isGameCompleted) && (currentPositionIndex == movesArray.length) && (
-              <div className="absolute top-0 w-full h-full z-10 flex justify-center items-center">
-                <div className="w-[95%] p-2 py-5 max-h-[550px] text-black bg-[#EEEEEE] shadow-md shadow-black/50 rounded-sm flex flex-col items-center justify-between">
+              <div className="absolute top-0 w-full h-full z-10 flex justify-center items-center bg-[#000000b3] rounded-[5px]">
+                <div className="w-[95%] p-2  text-black flex flex-col items-center justify-between rounded-[5px] border border-stroke bg-white p-7 shadow-default">
                   <Image
                     src="/chessvia.png"
                     alt="chessviaLogo"
@@ -411,6 +411,7 @@ const Board: React.FC<GameProps> = ({
                     height={200}
                     className="w-[30%]"
                   ></Image>
+                  
                   {(chess.isDraw() ||
                     chess.isInsufficientMaterial() ||
                     chess.isThreefoldRepetition()) && (
@@ -468,21 +469,21 @@ const Board: React.FC<GameProps> = ({
                         setInProcess(true);
                         r.push("/form");
                       }}
-                      className="w-full  rounded-lg  text-white transition duration-200 bg-[#124429] hover:bg-[#16281e] font-semibold text-[20px] py-2 mx-auto"
+                      className="w-full  rounded-lg  text-white transition duration-200 bg-[#124429] hover:bg-[#16281e] font-semibold text-[20px] py-4 mx-auto"
                     >
                       New Game
                     </button>
                     <button
                       disabled={inProcess}
                       onClick={() => {console.log("...")}}
-                      className="w-full  rounded-lg  text-white transition duration-200 bg-[#124429] hover:bg-[#16281e] font-semibold text-[20px] py-2 mx-auto"
+                      className="w-full  rounded-lg  text-white transition duration-200 bg-[#124429] hover:bg-[#16281e] font-semibold text-[20px] py-4 mx-auto"
                     >
                       Review Game
                     </button>
                     <button
                       disabled={inProcess}
                       onClick={() => handleQuickPlay()}
-                      className="w-full  rounded-lg   text-white transition duration-200 bg-[#124429] hover:bg-[#16281e] font-semibold text-[20px] py-2 mx-auto"
+                      className="w-full  rounded-lg   text-white transition duration-200 bg-[#124429] hover:bg-[#16281e] font-semibold text-[20px] py-4 mx-auto"
                     >
                       Quickplay
                     </button>
@@ -492,7 +493,7 @@ const Board: React.FC<GameProps> = ({
                         setInProcess(true);
                         r.push("/home");
                       }}
-                      className="w-full  rounded-lg  text-white transition duration-200 bg-[#124429] hover:bg-[#16281e] font-semibold text-[20px] py-2 mx-auto"
+                      className="w-full  rounded-lg  text-white transition duration-200 bg-[#124429] hover:bg-[#16281e] font-semibold text-[20px] py-4 mx-auto"
                     >
                       Home
                     </button>
