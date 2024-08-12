@@ -476,14 +476,14 @@ const Board: React.FC<GameProps> = ({
                     <button
                       disabled={inProcess}
                       onClick={() => {console.log("...")}}
-                      className="w-full  rounded-lg  text-white transition duration-200 bg-[#124429] hover:bg-[#16281e] font-semibold text-[20px] py-2 mx-auto"
+                      className="w-full  rounded-lg  text-white transition duration-200 bg-[#124429] hover:bg-[#16281e] font-semibold text-[20px] py-4 mx-auto"
                     >
                       Review Game
                     </button>
                     <button
                       disabled={inProcess}
                       onClick={() => handleQuickPlay()}
-                      className="w-full  rounded-lg   text-white transition duration-200 bg-[#124429] hover:bg-[#16281e] font-semibold text-[20px] py-2 mx-auto"
+                      className="w-full  rounded-lg   text-white transition duration-200 bg-[#124429] hover:bg-[#16281e] font-semibold text-[20px] py-4 mx-auto"
                     >
                       Quickplay
                     </button>
@@ -493,7 +493,7 @@ const Board: React.FC<GameProps> = ({
                         setInProcess(true);
                         r.push("/home");
                       }}
-                      className="w-full  rounded-lg  text-white transition duration-200 bg-[#124429] hover:bg-[#16281e] font-semibold text-[20px] py-2 mx-auto"
+                      className="w-full  rounded-lg  text-white transition duration-200 bg-[#124429] hover:bg-[#16281e] font-semibold text-[20px] py-4 mx-auto"
                     >
                       Home
                     </button>
