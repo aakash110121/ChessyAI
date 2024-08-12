@@ -13,6 +13,8 @@ import { BsFillInfoSquareFill } from "react-icons/bs";
 import { BronzeSub, SilverSub, GoldSub, PlatinumSub } from "@/lib/subscriptionPermissions";
 import MobileSidebar from '@/components/MobileSidebar';
 import { RxHamburgerMenu } from 'react-icons/rx';
+import Image from 'next/image';
+import { useRouter } from "next/navigation";
 
 const mp3Recordings = {
   alloy: { name: 'Recording 1', url: '/voices/alloy.mp3' },
@@ -60,6 +62,9 @@ export default function PageClient({settings, user, subTier, lout}:PageClientPro
     const [selectedBoard, setSelectedBoard] = useState<BoardCol>(settings.boardColor);
     const [predefinedQuestions, setPredefinedQuestions] = useState(settings.predefinedQuestions);
     const [chessyVoiceSound, setChessyVoiceSound] = useState(settings.chessyVoiceSound || 'on');
+    const [upgradePopup, setUpgradePopup] = useState<boolean>(false);
+    const [upgradePopupFor, setUpgradePopupFor] = useState<string>('');
+    const router = useRouter();
 
     useEffect(()=>{
        // console.log("Subscription: ", subTier);
@@ -283,6 +288,25 @@ export default function PageClient({settings, user, subTier, lout}:PageClientPro
       setIsMobileMenuVisible(!isMobileMenuVisible);
     };
 
+    const toggleUpgradePopup = (featureName:keyof typeof BronzeSub) => {
+      let supportedTier = 'Platinum';
+      if(featureName in BronzeSub){
+         if(BronzeSub[featureName]){
+            supportedTier='Bronze';
+         }
+         else if (SilverSub[featureName]){
+            supportedTier='Silver';
+         }
+         else if (GoldSub[featureName]){
+            supportedTier='Gold';
+         }
+         else supportedTier='Platinum';
+      }
+
+      setUpgradePopupFor(supportedTier);
+      setUpgradePopup(true);
+    }
+
     return (
       <div className="w-full relative md:overflow-hidden">
         <section
@@ -322,7 +346,39 @@ export default function PageClient({settings, user, subTier, lout}:PageClientPro
             Board settings
           </p>
           <div className="flex space-x-10 rounded-[5px] border border-stroke bg-white p-7 shadow-default">
-            <div className="space-y-2 w-full max-w-[650px] mt-5 flex-shrink-0">
+            <div className="space-y-2 w-full max-w-[650px] mt-5 flex-shrink-0 relative">
+              {upgradePopup && (
+                <div className="absolute top-0 w-full h-full z-10 flex justify-center items-center">
+                  <div className="w-[95%] p-2 py-5 max-h-[550px] text-black bg-[#EEEEEE] shadow-md shadow-black/50 rounded-sm flex flex-col items-center justify-between">
+                    <Image
+                      src="/chessvia.png"
+                      alt="chessviaLogo"
+                      width={200}
+                      height={200}
+                      className="w-[30%]"
+                    ></Image>
+                    <div className="flex flex-col py-4 px-2">
+                      <span className="text-[18px] text-800">
+                      Your subscription tier does not support this feature. This feature is supported from {upgradePopupFor} tier.
+                      </span>
+                    </div>
+                    <div className="w-full grid grid-rows-4 sm:grid-rows-2 sm:grid-flow-col gap-2 px-2">
+                      <button
+                        onClick={() => router.push('/pricing')}
+                        className="w-full rounded-lg text-white transition duration-200 bg-[#124429] hover:bg-[#16281e] font-semibold text-[20px] py-2 mx-auto"
+                      >
+                        Upgrade
+                      </button>
+                      <button
+                        onClick={() => {setUpgradePopup(false)}}
+                        className="w-full rounded-lg text-white transition duration-200 bg-[#124429] hover:bg-[#16281e] font-semibold text-[20px] py-2 mx-auto"
+                      >
+                        Close
+                      </button>
+                    </div>
+                  </div>
+                </div>
+              )}
               <div
                 className={`border-[2px] rounded-[5px] bg-[#F3F5F8] p-3  font-medium text-black mx-auto flex ${
                   isSmallScr
@@ -337,22 +393,30 @@ export default function PageClient({settings, user, subTier, lout}:PageClientPro
                   Board
                 </label>
                 <div className="flex items-center w-full max-w-[300px] gap-x-1">
-                  <select
-                    disabled={!subTier.change_board_color}
-                    id="BoardDropdown"
-                    className="block w-full max-w-[300px] p-2 bg-white border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
-                    value={selectedBoard.id}
-                    onChange={handleSelectBoardColor}
-                  >
-                    {/*<option value="" disabled>
-                -- Select an option --
-                </option>*/}
-                    {tableColors.map((table: any, idx: number) => (
-                      <option key={idx} value={table.id}>
-                        {table.name}
-                      </option>
-                    ))}
-                  </select>
+                  <div className="relative w-full max-w-[300px]">
+                    {!subTier.change_board_color && (
+                      <span
+                        className="absolute z-[1] w-full h-full max-w-[300px] p-2 rounded-md focus:outline-none cursor-pointer"
+                        onClick={()=>{toggleUpgradePopup('change_board_color')}}
+                      ></span>
+                    )}
+                    <select
+                      disabled={!subTier.change_board_color}
+                      id="BoardDropdown"
+                      className="block w-full max-w-[300px] p-2 bg-white border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
+                      value={selectedBoard.id}
+                      onChange={handleSelectBoardColor}
+                    >
+                      {/*<option value="" disabled>
+                  -- Select an option --
+                  </option>*/}
+                      {tableColors.map((table: any, idx: number) => (
+                        <option key={idx} value={table.id}>
+                          {table.name}
+                        </option>
+                      ))}
+                    </select>
+                  </div>
                   {!subTier.change_board_color &&
                     sideAlert("change_board_color")}
                 </div>
@@ -371,22 +435,30 @@ export default function PageClient({settings, user, subTier, lout}:PageClientPro
                   Assistant voice
                 </label>
                 <div className="w-full max-w-[300px] flex items-center gap-x-1">
-                  <select
-                    disabled={!subTier.change_assistant_voice}
-                    id="AssistantVoice"
-                    className="block w-full max-w-[300px] p-2 bg-white border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
-                    value={selectedVoice.id}
-                    onChange={handleSelectVoices}
-                  >
-                    {/*<option value="" disabled>
-                -- Select an option --
-                </option>*/}
-                    {offeredVoices.map((voice: any, idx: number) => (
-                      <option key={voice.id} value={voice.id}>
-                        {voice.name}
-                      </option>
-                    ))}
-                  </select>
+                  <div className="relative w-full max-w-[300px]">
+                    {!subTier.change_assistant_voice && (
+                      <span
+                        className="absolute z-[1] w-full h-full max-w-[300px] p-2 rounded-md focus:outline-none cursor-pointer"
+                        onClick={()=>{toggleUpgradePopup('change_assistant_voice')}}
+                      ></span>
+                    )}
+                    <select
+                      disabled={!subTier.change_assistant_voice}
+                      id="AssistantVoice"
+                      className="block w-full max-w-[300px] p-2 bg-white border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
+                      value={selectedVoice.id}
+                      onChange={handleSelectVoices}
+                    >
+                      {/*<option value="" disabled>
+                  -- Select an option --
+                  </option>*/}
+                      {offeredVoices.map((voice: any, idx: number) => (
+                        <option key={voice.id} value={voice.id}>
+                          {voice.name}
+                        </option>
+                      ))}
+                    </select>
+                  </div>
                   {!subTier.change_assistant_voice &&
                     sideAlert("change_assistant_voice")}
                 </div>
@@ -405,7 +477,13 @@ export default function PageClient({settings, user, subTier, lout}:PageClientPro
                   Predefined questions
                 </label>
                 <div className="flex w-full max-w-[300px] items-center gap-x-1">
-                  <div className="flex w-full max-w-[300px]">
+                  <div className="flex w-full max-w-[300px] relative overflow-hidden">
+                    {!subTier.change_predefined_questions && (
+                      <span
+                        className="absolute z-[1] w-full h-full max-w-[300px] p-2 rounded-md focus:outline-none cursor-pointer"
+                        onClick={()=>{toggleUpgradePopup('change_predefined_questions')}}
+                      ></span>
+                    )}
                     <div className=" rounded-md relative flex justify-center items-center">
                      
 
@@ -492,19 +570,27 @@ export default function PageClient({settings, user, subTier, lout}:PageClientPro
                   Notation
                 </label>
                 <div className="w-full max-w-[300px] gap-x-1 flex items-center">
-                  <select
-                    disabled={!subTier.change_notation}
-                    id="PiecesNotation"
-                    className="block w-full max-w-[300px] p-2 bg-white border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
-                    value={selectedNotation}
-                    onChange={handleSelectNotation}
-                  >
-                    {/*<option value="" disabled>
-                -- Select an option --
-                </option>*/}
-                    <option value="text">Text</option>
-                    <option value="icon">Icon</option>
-                  </select>
+                  <div className="relative w-full max-w-[300px]">
+                    {!subTier.change_notation && (
+                      <span
+                        className="absolute z-[1] w-full h-full max-w-[300px] p-2 rounded-md focus:outline-none cursor-pointer"
+                        onClick={()=>{toggleUpgradePopup('change_notation')}}
+                      ></span>
+                    )}
+                    <select
+                      disabled={!subTier.change_notation}
+                      id="PiecesNotation"
+                      className="block w-full max-w-[300px] p-2 bg-white border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
+                      value={selectedNotation}
+                      onChange={handleSelectNotation}
+                    >
+                      {/*<option value="" disabled>
+                  -- Select an option --
+                  </option>*/}
+                      <option value="text">Text</option>
+                      <option value="icon">Icon</option>
+                    </select>
+                  </div>
                   {!subTier.change_notation && sideAlert("change_notation")}
                 </div>
               </div>
@@ -522,19 +608,27 @@ export default function PageClient({settings, user, subTier, lout}:PageClientPro
                   View captured pieces
                 </label>
                 <div className="flex w-full max-w-[300px] gap-x-1 items-center">
-                  <select
-                    disabled={!subTier.view_captured_pieces}
-                    id="PiecesNotation"
-                    className="block w-full max-w-[300px] p-2 bg-white border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
-                    value={selectedCapturedVisibility}
-                    onChange={handleShowCapturedPieces}
-                  >
-                    {/*<option value="" disabled>
-                -- Select an option --
-                </option>*/}
-                    <option value="visible">Visible</option>
-                    <option value="hidden">Hidden</option>
-                  </select>
+                  <div className="relative w-full max-w-[300px]">
+                    {!subTier.view_captured_pieces && (
+                      <span
+                        className="absolute z-[1] w-full h-full max-w-[300px] p-2 rounded-md focus:outline-none cursor-pointer"
+                        onClick={()=>{toggleUpgradePopup('view_captured_pieces')}}
+                      ></span>
+                    )}
+                    <select
+                      disabled={!subTier.view_captured_pieces}
+                      id="PiecesNotation"
+                      className="block w-full max-w-[300px] p-2 bg-white border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
+                      value={selectedCapturedVisibility}
+                      onChange={handleShowCapturedPieces}
+                    >
+                      {/*<option value="" disabled>
+                  -- Select an option --
+                  </option>*/}
+                      <option value="visible">Visible</option>
+                      <option value="hidden">Hidden</option>
+                    </select>
+                  </div>
                   {!subTier.view_captured_pieces &&
                     sideAlert("view_captured_pieces")}
                 </div>
@@ -584,22 +678,30 @@ export default function PageClient({settings, user, subTier, lout}:PageClientPro
                   Move sound
                 </label>
                 <div className="w-full max-w-[300px] flex items-center gap-x-1">
-                  <select
-                    disabled={!subTier.change_sound_settings}
-                    id="moveSound"
-                    className="block w-full max-w-[300px] p-2 bg-white border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
-                    value={selectedMoveSound}
-                    onChange={handleSelectMoveSound}
-                  >
-                    {/*<option value="" disabled>
-                -- Select an option --
-                </option>*/}
-                    {offeredSounds.map((sound: any, idx: number) => (
-                      <option key={idx} value={sound.sound}>
-                        {sound.name}
-                      </option>
-                    ))}
-                  </select>
+                  <div className="relative w-full max-w-[300px]">
+                    {!subTier.change_sound_settings && (
+                      <span
+                        className="absolute z-[1] w-full h-full max-w-[300px] p-2 rounded-md focus:outline-none cursor-pointer"
+                        onClick={()=>{toggleUpgradePopup('change_sound_settings')}}
+                      ></span>
+                    )}
+                    <select
+                      disabled={!subTier.change_sound_settings}
+                      id="moveSound"
+                      className="block w-full max-w-[300px] p-2 bg-white border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
+                      value={selectedMoveSound}
+                      onChange={handleSelectMoveSound}
+                    >
+                      {/*<option value="" disabled>
+                  -- Select an option --
+                  </option>*/}
+                      {offeredSounds.map((sound: any, idx: number) => (
+                        <option key={idx} value={sound.sound}>
+                          {sound.name}
+                        </option>
+                      ))}
+                    </select>
+                  </div>
                   {!subTier.change_sound_settings &&
                     sideAlert("change_sound_settings")}
                 </div>
@@ -618,22 +720,30 @@ export default function PageClient({settings, user, subTier, lout}:PageClientPro
                   Captured piece sound
                 </label>
                 <div className="w-full max-w-[300px] flex items-center gap-x-1">
-                  <select
-                    disabled={!subTier.change_sound_settings}
-                    id="checkSound"
-                    className="block w-full max-w-[300px] p-2 bg-white border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
-                    value={selectedCaptureSound}
-                    onChange={handleSelectCaptureSound}
-                  >
-                    {/*<option value="" disabled>
-                -- Select an option --
-                </option>*/}
-                    {offeredSounds.map((sound: any, idx: number) => (
-                      <option key={idx} value={sound.sound}>
-                        {sound.name}
-                      </option>
-                    ))}
-                  </select>
+                  <div className="relative w-full max-w-[300px]">
+                    {!subTier.change_sound_settings && (
+                      <span
+                        className="absolute z-[1] w-full h-full max-w-[300px] p-2 rounded-md focus:outline-none cursor-pointer"
+                        onClick={()=>{toggleUpgradePopup('change_sound_settings')}}
+                      ></span>
+                    )}
+                    <select
+                      disabled={!subTier.change_sound_settings}
+                      id="checkSound"
+                      className="block w-full max-w-[300px] p-2 bg-white border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
+                      value={selectedCaptureSound}
+                      onChange={handleSelectCaptureSound}
+                    >
+                      {/*<option value="" disabled>
+                  -- Select an option --
+                  </option>*/}
+                      {offeredSounds.map((sound: any, idx: number) => (
+                        <option key={idx} value={sound.sound}>
+                          {sound.name}
+                        </option>
+                      ))}
+                    </select>
+                  </div>
                   {!subTier.change_sound_settings &&
                     sideAlert("change_sound_settings")}
                 </div>
@@ -652,22 +762,30 @@ export default function PageClient({settings, user, subTier, lout}:PageClientPro
                   Check sound
                 </label>
                 <div className="w-full max-w-[300px] flex items-center gap-x-1">
-                  <select
-                    disabled={!subTier.change_sound_settings}
-                    id="checkMateSound"
-                    className="block w-full max-w-[300px] p-2 bg-white border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
-                    value={selectedCheckSound}
-                    onChange={handleSelectCheckSound}
-                  >
-                    {/*<option value="" disabled>
-                -- Select an option --
-                </option>*/}
-                    {offeredSounds.map((sound: any, idx: number) => (
-                      <option key={idx} value={sound.sound}>
-                        {sound.name}
-                      </option>
-                    ))}
-                  </select>
+                  <div className="relative w-full max-w-[300px]">
+                    {!subTier.change_sound_settings && (
+                      <span
+                        className="absolute z-[1] w-full h-full max-w-[300px] p-2 rounded-md focus:outline-none cursor-pointer"
+                        onClick={()=>{toggleUpgradePopup('change_sound_settings')}}
+                      ></span>
+                    )}
+                    <select
+                      disabled={!subTier.change_sound_settings}
+                      id="checkMateSound"
+                      className="block w-full max-w-[300px] p-2 bg-white border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
+                      value={selectedCheckSound}
+                      onChange={handleSelectCheckSound}
+                    >
+                      {/*<option value="" disabled>
+                  -- Select an option --
+                  </option>*/}
+                      {offeredSounds.map((sound: any, idx: number) => (
+                        <option key={idx} value={sound.sound}>
+                          {sound.name}
+                        </option>
+                      ))}
+                    </select>
+                  </div>
                   {!subTier.change_sound_settings &&
                     sideAlert("change_sound_settings")}
                 </div>
