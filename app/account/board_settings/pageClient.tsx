@@ -348,8 +348,8 @@ export default function PageClient({settings, user, subTier, lout}:PageClientPro
           <div className="flex space-x-10 rounded-[5px] border border-stroke bg-white p-7 shadow-default">
             <div className="space-y-2 w-full max-w-[650px] mt-5 flex-shrink-0 relative">
               {upgradePopup && (
-                <div className="absolute top-0 w-full h-full z-10 flex justify-center items-center">
-                  <div className="w-[95%] p-2 py-5 max-h-[550px] text-black bg-[#EEEEEE] shadow-md shadow-black/50 rounded-sm flex flex-col items-center justify-between">
+                <div className="absolute top-0 w-full h-full z-10 flex justify-center items-center bg-[#000000b3] rounded-[5px]">
+                  <div className="w-[95%]   text-black flex flex-col items-center justify-between rounded-[5px] border border-stroke bg-white p-7 shadow-default">
                     <Image
                       src="/chessvia.png"
                       alt="chessviaLogo"
@@ -358,20 +358,20 @@ export default function PageClient({settings, user, subTier, lout}:PageClientPro
                       className="w-[30%]"
                     ></Image>
                     <div className="flex flex-col py-4 px-2">
-                      <span className="text-[18px] text-800">
+                      <span className="text-[18px] text-#000-800 text-center">
                       Your subscription tier does not support this feature. This feature is supported from {upgradePopupFor} tier.
                       </span>
                     </div>
-                    <div className="w-full grid grid-rows-4 sm:grid-rows-2 sm:grid-flow-col gap-2 px-2">
+                    <div className="w-full grid grid-rows-2 sm:grid-rows-1 sm:grid-flow-col gap-2 px-2">
                       <button
                         onClick={() => router.push('/pricing')}
-                        className="w-full rounded-lg text-white transition duration-200 bg-[#124429] hover:bg-[#16281e] font-semibold text-[20px] py-2 mx-auto"
+                        className="w-full rounded-lg text-white transition duration-200 bg-[#124429] hover:bg-[#16281e] font-semibold text-[20px] py-4 mx-auto"
                       >
                         Upgrade
                       </button>
                       <button
                         onClick={() => {setUpgradePopup(false)}}
-                        className="w-full rounded-lg text-white transition duration-200 bg-[#124429] hover:bg-[#16281e] font-semibold text-[20px] py-2 mx-auto"
+                        className="w-full rounded-lg text-white transition duration-200 bg-[#124429] hover:bg-[#16281e] font-semibold text-[20px] py-4 mx-auto"
                       >
                         Close
                       </button>
