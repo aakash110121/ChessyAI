@@ -124,7 +124,7 @@ export default function PricingTable({userId, subscription, trial=false}:TierCar
 
   return (
     <div className="relative bg-[#f1f5f9] w-full min-h-screen px-2 py-[70px]  overflow-x-hidden ">
-      <div className="fixed hidden md:flex w-full bottom-0 h-5 bg-gradient-to-t from-[#124429] to-[#1244293b] z-[10] "></div>
+      <div className="fixed hidden md:flex w-full bottom-0 h-5 bg-gradient-to-t from-[#0f172a] to-[#1244293b] z-[10] "></div>
       {priceId ? 
           <div className="fixed left-0 right-0 top-0 bottom-0 flex justify-center items-center z-20 bg-[#12442950] backdrop-blur-sm">
              {step == 0 ? 
