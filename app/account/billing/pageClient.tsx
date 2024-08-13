@@ -165,7 +165,7 @@ export default function AccountClient({session, userProfile, subscription, invoi
                    </div>
                  </div>
                )}
-               <section className="w-full p-2 pt-5 pb-0 lg:pt-2 flex flex-col lg:flex-row gap-y-2 lg:gap-x-2 lg:gap-y-0 ">
+               <section className="w-full p-2 pt-5 pb-0 lg:pt-2 flex flex-col lg:flex-row gap-y-4 lg:gap-x-4 lg:gap-y-0 ">
                  <div className="w-full lg:w-1/2 rounded-[5px] border border-stroke bg-white p-7 shadow-default">
                    <p className="text-[22px] font-semibold text-[#000]">Account type</p>
                    <ul className="flex  border-t-[1px] border-[#ddd] py-4 mt-[15px] gap-4">
@@ -203,7 +203,7 @@ export default function AccountClient({session, userProfile, subscription, invoi
                          {subscription.cancel_at_period_end ? (
                            <button
                              onClick={() => setAction('reactivate')}
-                             className="p-2 px-4 text-[14px] bg-[#000] text-white rounded-md tracking-wide font-semibold"
+                             className="p-2 px-4 text-[14px] bg-[#000] border border-[#000] hover:bg-[#fff] hover:text-[#000] text-white rounded-md tracking-wide font-semibold"
                            >
                              Reactivate
                            </button>
