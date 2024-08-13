@@ -196,7 +196,7 @@ export default function AccountClient({session, userProfile, subscription, invoi
                                )}min`}
                          </p>
                        </div>
-                       <div className="flex w-full mt-5 flex-wrap ">
+                       <div className="flex w-full mt-5 flex-wrap gap-y-1">
                          <button onClick={()=>router.push('/pricing')} className="p-2 mr-2 px-4 text-[14px] bg-[#000] border border-[#000] hover:bg-[#fff] hover:text-[#000] text-white tracking-wider rounded-md font-semibold">
                            Upgrade
                          </button>
