@@ -131,11 +131,11 @@ export default function AccountClient({session, userProfile, subscription, invoi
              </section>
            </div>
          ) : (
-           <div className="w-full bg-gray-100 py-[70px] relative">
+           <div className="w-full bg-gray-100 py-[70px] relative overflow-y-auto">
              <div className="w-full h-full  lg:px-5">
                {action && (
                  <div
-                   className={`absolute left-0 right-0  flex justify-center items-center bg-[#000000b3]  top-0 bottom-0`}
+                   className={`fixed z-[999] left-0 right-0  flex justify-center items-center bg-[#000000b3]  top-0 bottom-0`}
                  >
                    <div className="max-w-[500px]  flex flex-col items-center justify-between rounded-[5px] border border-stroke bg-white px-7 py-[40px] shadow-default">
                      <div className="w-full flex flex-col items-center justify-center space-y-4">
@@ -197,7 +197,7 @@ export default function AccountClient({session, userProfile, subscription, invoi
                          </p>
                        </div>
                        <div className="flex w-full mt-5 flex-wrap ">
-                         <button onClick={()=>router.push('/pricing')} className="p-2 mr-2 px-4 text-[14px] bg-[#000] text-white tracking-wider rounded-md font-semibold">
+                         <button onClick={()=>router.push('/pricing')} className="p-2 mr-2 px-4 text-[14px] bg-[#000] border border-[#000] hover:bg-[#fff] hover:text-[#000] text-white tracking-wider rounded-md font-semibold">
                            Upgrade
                          </button>
                          {subscription.cancel_at_period_end ? (
@@ -210,7 +210,7 @@ export default function AccountClient({session, userProfile, subscription, invoi
                          ) : (
                            <button
                              onClick={() => setAction('cancel')}
-                             className="p-2 px-4 text-[14px] bg-[#000] text-white rounded-md tracking-wide font-semibold"
+                             className="p-2 px-4 text-[14px] bg-[#000] border border-[#000] hover:bg-[#fff] hover:text-[#000] text-white rounded-md tracking-wide font-semibold"
                            >
                              Cancel
                            </button>
@@ -272,7 +272,7 @@ export default function AccountClient({session, userProfile, subscription, invoi
                                year: "numeric",
                              })}
                            </p>
-                           {subscription.cancel_at_period_end && <div className="text-[10px] font-thin p-1 text-white rounded-md bg-red-600">CANCELED</div>}
+                           {subscription.cancel_at_period_end && <div className="text-[10px] font-medium p-1 text-white rounded-md bg-red-600">CANCELED</div>}
                          </div>
                        </div>
                      </li>
