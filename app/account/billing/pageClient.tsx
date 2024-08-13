@@ -168,8 +168,8 @@ export default function AccountClient({session, userProfile, subscription, invoi
                <section className="w-full p-2 pt-5 pb-0 lg:pt-2 flex flex-col lg:flex-row gap-y-2 lg:gap-x-2 lg:gap-y-0 ">
                  <div className="w-full lg:w-1/2 rounded-[5px] border border-stroke bg-white p-7 shadow-default">
                    <p className="text-[22px] font-semibold text-[#000]">Account type</p>
-                   <ul className="flex  border-t-[1px] border-[#ddd] py-4 mt-[15px]">
-                     <li className="p-2 w-1/2 border-[#13131340]">
+                   <ul className="flex  border-t-[1px] border-[#ddd] py-4 mt-[15px] gap-4">
+                     <li className="p-2 w-1/2 border-[2px] rounded-[5px] bg-[#F3F5F8] p-5">
                        <div className="break-words">
                          <p className="text-[#000] font-bold mb-2 tracking-wide">
                            YOUR SUBSCRIPTION
@@ -217,7 +217,7 @@ export default function AccountClient({session, userProfile, subscription, invoi
                          )}
                        </div>
                      </li>
-                     <li className="w-1/2 p-2 flex flex-col justify-between">
+                     <li className="w-1/2 flex flex-col justify-between border-[2px] rounded-[5px] bg-[#F3F5F8] p-5">
                        <div className="">
                          <p className="text-[#000] font-bold tracking-wide mb-2">
                            YOUR LAST BILL
